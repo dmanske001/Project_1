@@ -16,7 +16,7 @@ class Logic(QMainWindow, Ui_MainWindow):
 
     def __init__(self):
         """
-        Method hides UI on program start. Also allows contains code triggers for calculate and clear buttons being clicked,
+        Method hides UI on program start. Also contains code triggers for calculate and clear buttons being clicked,
         and num_attempts being changed, so that amount of score boxes is dynamic
         """
         super().__init__()
