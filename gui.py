@@ -10,7 +10,10 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    """
+    This class generates the UI for the program
+    """
+    def setupUi(self, MainWindow) -> None:
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(400, 550)
         MainWindow.setMinimumSize(QtCore.QSize(400, 550))
@@ -96,7 +99,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, MainWindow) -> None:
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Record Grade Average for Assignment"))
         self.label_assign_no.setText(_translate("MainWindow", "Assignment Number"))

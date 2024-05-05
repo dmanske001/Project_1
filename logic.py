@@ -3,7 +3,9 @@ from gui import *
 import csv
 
 class Logic(QMainWindow, Ui_MainWindow):
-
+    """
+    This class contains all the logic for the program
+    """
     hidden = False
     with open('grades.csv', 'w', newline='') as output_csv_file:
 
@@ -13,6 +15,10 @@ class Logic(QMainWindow, Ui_MainWindow):
              'Attempt 3 Score', 'Attempt 4 Score', 'Attempt 5 Score', 'Average Score'])
 
     def __init__(self):
+        """
+        Method hides UI on program start. Also allows contains code triggers for calculate and clear buttons being clicked,
+        and num_attempts being changed, so that amount of score boxes is dynamic
+        """
         super().__init__()
         self.setupUi(self)
         self.show_hide()
@@ -22,7 +28,12 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.button_clear.clicked.connect(lambda: self.clear())
 
 
-    def get_letter_grade(self, score):
+    def get_letter_grade(self, score: float) -> str:
+        """
+        Method to return letter grade based on score received
+        :param score: Score between 0 and 100 that is to be translated to letter grade
+        :return: Letter grade based on score received
+        """
         if score <= 100.0 and score >= 93.0:
             return 'A'
         elif score <= 92.9 and score >= 90.0:
@@ -46,7 +57,11 @@ class Logic(QMainWindow, Ui_MainWindow):
         else:
             return 'F'
 
-    def calculate(self):
+    def calculate(self) -> None:
+        """
+        This method calculates the grade average based on user-entered attempt scores, displays the results
+        and writes the results to an excel file.
+        """
         try:
             attempts = int(self.input_num_attempts.text())
             assignment_number = int(self.input_assign_num.text())
@@ -68,7 +83,7 @@ class Logic(QMainWindow, Ui_MainWindow):
 
                     csv_content = csv.writer(output_csv_file)
                     csv_content.writerow(
-                        [assignment_number, student_name, attempts, score_1, ' ', ' ', ' ', ' ', average, letter_grade])
+                        [assignment_number, student_name, attempts, score_1, '', '', '', '', "%.1f" % average, letter_grade])
 
             elif attempts == 2:
                 score_1 = float(self.input_score_1.text())
@@ -89,7 +104,7 @@ class Logic(QMainWindow, Ui_MainWindow):
 
                     csv_content = csv.writer(output_csv_file)
                     csv_content.writerow(
-                        [assignment_number, student_name, attempts, score_1, score_2, ' ', ' ', ' ', average, letter_grade])
+                        [assignment_number, student_name, attempts, score_1, score_2, '', '', '', "%.1f" % average, letter_grade])
 
             elif attempts == 3:
                 score_1 = float(self.input_score_1.text())
@@ -114,7 +129,7 @@ class Logic(QMainWindow, Ui_MainWindow):
 
                     csv_content = csv.writer(output_csv_file)
                     csv_content.writerow(
-                        [assignment_number, student_name, attempts, score_1, score_2, score_3, ' ', ' ', average, letter_grade])
+                        [assignment_number, student_name, attempts, score_1, score_2, score_3, '', '', "%.1f" % average, letter_grade])
 
             elif attempts == 4:
                 score_1 = float(self.input_score_1.text())
@@ -143,7 +158,7 @@ class Logic(QMainWindow, Ui_MainWindow):
 
                     csv_content = csv.writer(output_csv_file)
                     csv_content.writerow(
-                        [assignment_number, student_name, attempts, score_1, score_2, score_3, score_4, ' ', average, letter_grade])
+                        [assignment_number, student_name, attempts, score_1, score_2, score_3, score_4, '', "%.1f" % average, letter_grade])
 
             elif attempts == 5:
                 score_1 = float(self.input_score_1.text())
@@ -176,7 +191,7 @@ class Logic(QMainWindow, Ui_MainWindow):
 
                     csv_content = csv.writer(output_csv_file)
                     csv_content.writerow(
-                        [assignment_number, student_name, attempts, score_1, score_2, score_3, score_4, score_5, average, letter_grade])
+                        [assignment_number, student_name, attempts, score_1, score_2, score_3, score_4, score_5, "%.1f" % average, letter_grade])
 
             elif int(self.input_num_attempts.text()) > 5 or int(self.input_num_attempts.text()) < 1:
                 raise Exception
@@ -194,8 +209,11 @@ class Logic(QMainWindow, Ui_MainWindow):
 
 
 
-    def clear(self):
-
+    def clear(self) -> None:
+        """
+        This method resets the UI to the starting status
+        :return:
+        """
         self.input_assign_num.setText('')
         self.input_num_attempts.setText('')
         self.input_student_name.setText('')
@@ -219,8 +237,10 @@ class Logic(QMainWindow, Ui_MainWindow):
 
 
 
-#dynamically hides and shows attempt scores, labels and error messages
-    def show_hide(self):
+    def show_hide(self) -> None:
+        """
+        This method dynamically hides and shows attempt scores, labels and error messages
+        """
         try:
             self.label_confirmation.setText('')
             if not self.hidden:
