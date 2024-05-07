@@ -14,7 +14,7 @@ class Logic(QMainWindow, Ui_MainWindow):
             ['Assignment Number', 'Student Name', 'Number of Attempts', 'Attempt 1 Score', 'Attempt 2 Score',
              'Attempt 3 Score', 'Attempt 4 Score', 'Attempt 5 Score', 'Average Score'])
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Method hides UI on program start. Also contains code triggers for calculate and clear buttons being clicked,
         and num_attempts being changed, so that amount of score boxes is dynamic
